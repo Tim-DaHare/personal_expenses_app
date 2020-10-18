@@ -12,14 +12,14 @@ class TransactionList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return transactions.isNotEmpty
-        ? ListView.builder(
-            itemCount: transactions.length,
-            itemBuilder: (context, index) {
-              return TransactionItem(
-                  transaction: transactions[index],
-                  onPressDeleteItem: onPressDeleteItem);
-            },
-          )
+        ? ListView(
+            children: transactions.map((tx) {
+            return TransactionItem(
+              key: ValueKey(tx.id),
+              transaction: tx,
+              onPressDeleteItem: onPressDeleteItem,
+            );
+          }).toList())
         : LayoutBuilder(
             builder: (ctx, constraints) {
               return Column(
